@@ -624,6 +624,33 @@ describe("projectCommand", () => {
       expect(result).toContain("gh-axi project list --owner octo");
     });
 
+    it("previews title and item count before calling gh project delete", async () => {
+      const events: string[] = [];
+      const stderr = vi
+        .spyOn(process.stderr, "write")
+        .mockImplementation((chunk) => {
+          events.push(`preview:${String(chunk)}`);
+          return true;
+        });
+      mockedGhJson.mockImplementation(async (args: string[]) => {
+        events.push(`gh:${args[1]}`);
+        return { number: 7, title: "Empty Project", items: { totalCount: 0 } };
+      });
+
+      try {
+        await projectCommand(["delete", "7"], ctx);
+      } finally {
+        stderr.mockRestore();
+      }
+
+      expect(events).toHaveLength(3);
+      expect(events[0]).toBe("gh:view");
+      expect(events[1]).toContain("preview:");
+      expect(events[1]).toContain("Empty Project");
+      expect(events[1]).toContain("item_count=0");
+      expect(events[2]).toBe("gh:delete");
+    });
+
     it("refuses to delete a project with items", async () => {
       mockedGhJson.mockResolvedValueOnce({
         number: 8,

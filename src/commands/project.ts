@@ -901,6 +901,10 @@ async function projectDelete(
     );
   }
 
+  process.stderr.write(
+    `Deleting ${projectLabel}: title=${title ?? ""} item_count=${itemCount}\n`,
+  );
+
   await ghJson<ProjectRecord>([
     "project",
     "delete",
