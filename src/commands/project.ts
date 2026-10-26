@@ -64,9 +64,18 @@ export const PROJECT_FLAGS: Record<string, readonly string[]> = {
   "item-add": ["--owner", "--url"],
   "item-create": ["--owner", "--title", "--body", "--body-file"],
   "item-edit": [
-    "--id", "--project-id", "--field-id", "--text", "--number", "--date",
-    "--single-select-option-id", "--iteration-id", "--title", "--body",
-    "--body-file", "--clear",
+    "--id",
+    "--project-id",
+    "--field-id",
+    "--text",
+    "--number",
+    "--date",
+    "--single-select-option-id",
+    "--iteration-id",
+    "--title",
+    "--body",
+    "--body-file",
+    "--clear",
   ],
   "item-archive": ["--owner", "--id", "--undo"],
   "item-delete": ["--owner", "--id"],
@@ -937,25 +946,60 @@ export async function projectCommand(
       rejectUnknownFlags(rest, PROJECT_FLAGS.view, "project", "view");
       return projectView(rest, ctx);
     case "item-list":
-      rejectUnknownFlags(rest, PROJECT_FLAGS["item-list"], "project", "item-list");
+      rejectUnknownFlags(
+        rest,
+        PROJECT_FLAGS["item-list"],
+        "project",
+        "item-list",
+      );
       return projectItemList(rest, ctx);
     case "field-list":
-      rejectUnknownFlags(rest, PROJECT_FLAGS["field-list"], "project", "field-list");
+      rejectUnknownFlags(
+        rest,
+        PROJECT_FLAGS["field-list"],
+        "project",
+        "field-list",
+      );
       return projectFieldList(rest, ctx);
     case "item-add":
-      rejectUnknownFlags(rest, PROJECT_FLAGS["item-add"], "project", "item-add");
+      rejectUnknownFlags(
+        rest,
+        PROJECT_FLAGS["item-add"],
+        "project",
+        "item-add",
+      );
       return projectItemAdd(rest, ctx);
     case "item-create":
-      rejectUnknownFlags(rest, PROJECT_FLAGS["item-create"], "project", "item-create");
+      rejectUnknownFlags(
+        rest,
+        PROJECT_FLAGS["item-create"],
+        "project",
+        "item-create",
+      );
       return projectItemCreate(rest, ctx);
     case "item-edit":
-      rejectUnknownFlags(rest, PROJECT_FLAGS["item-edit"], "project", "item-edit");
+      rejectUnknownFlags(
+        rest,
+        PROJECT_FLAGS["item-edit"],
+        "project",
+        "item-edit",
+      );
       return projectItemEdit(rest);
     case "item-archive":
-      rejectUnknownFlags(rest, PROJECT_FLAGS["item-archive"], "project", "item-archive");
+      rejectUnknownFlags(
+        rest,
+        PROJECT_FLAGS["item-archive"],
+        "project",
+        "item-archive",
+      );
       return projectItemArchive(rest, ctx);
     case "item-delete":
-      rejectUnknownFlags(rest, PROJECT_FLAGS["item-delete"], "project", "item-delete");
+      rejectUnknownFlags(
+        rest,
+        PROJECT_FLAGS["item-delete"],
+        "project",
+        "item-delete",
+      );
       return projectItemDelete(rest, ctx);
     case "create":
       rejectUnknownFlags(rest, PROJECT_FLAGS.create, "project", "create");

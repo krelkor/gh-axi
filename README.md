@@ -158,6 +158,7 @@ A missing or empty `--env`, conflicting `--env` flags, `--env-file`, other `gh s
 A `variable set --body` value is visible in the `gh-axi` process argv, but it is piped to `gh variable set` so the child process does not receive it in argv.
 `gh-axi project` wraps GitHub Projects (v2) and requires the `project` (or `read:project`) OAuth scope; if a call fails on a missing scope, gh-axi tells you the `gh auth refresh -s <scope>` command to run.
 `--owner` defaults to the current repo's owner, falling back to explicit `@me` for the authenticated user.
+`gh-axi project delete <number>` deletes only empty projects: it refuses when the project still has items or its item count cannot be determined, and otherwise reports the deleted project's title.
 
 `gh-axi gist create` requires `--public` or `--secret` explicitly — passing neither (or both) is an error.
 Gist visibility is fixed at creation; a secret gist is unlisted (anyone with the URL can read it), not private.
