@@ -642,6 +642,16 @@ describe("projectCommand", () => {
       expect(mockedGhJson).toHaveBeenCalledTimes(1);
     });
 
+    it("refuses to delete when the item count is missing", async () => {
+      mockedGhJson.mockResolvedValueOnce({ number: 9, title: "Unknown" });
+
+      const error = await projectCommand(["delete", "9"], ctx).catch((e) => e);
+
+      expect(error).toBeInstanceOf(AxiError);
+      expect((error as AxiError).code).toBe("VALIDATION_ERROR");
+      expect(mockedGhJson).toHaveBeenCalledTimes(1);
+    });
+
     it("defaults --owner from repo context when not explicitly given", async () => {
       mockedGhJson
         .mockResolvedValueOnce({

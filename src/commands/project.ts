@@ -868,11 +868,18 @@ async function projectDelete(
     ...ownerArgs(owner),
   ]);
 
-  const itemCount = project.items?.totalCount ?? 0;
   const title = project.title;
   const projectLabel = title
     ? `project "${title}" (#${num})`
     : `project #${num}`;
+
+  const itemCount = project.items?.totalCount;
+  if (typeof itemCount !== "number") {
+    throw new AxiError(
+      `Cannot delete ${projectLabel} because its item count could not be determined`,
+      "VALIDATION_ERROR",
+    );
+  }
 
   if (itemCount > 0) {
     const ownerFlagText = owner ? ` --owner ${owner}` : "";
