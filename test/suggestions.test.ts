@@ -215,4 +215,16 @@ describe("getSuggestions", () => {
     expect(lines.some((l) => l.includes("watch 123"))).toBe(true);
     expect(lines.some((l) => l.includes("cancel 123"))).toBe(true);
   });
+
+  it("returns project delete suggestions", () => {
+    const lines = getSuggestions({
+      domain: "project",
+      action: "delete",
+      id: 4,
+      owner: "my-org",
+    });
+    expect(lines).toEqual([
+      "Run `gh-axi project list --owner my-org` to see remaining projects",
+    ]);
+  });
 });

@@ -583,4 +583,121 @@ describe("projectCommand", () => {
       ).rejects.toThrow(AxiError);
     });
   });
+
+  describe("delete", () => {
+    it("deletes an empty project", async () => {
+      mockedGhJson
+        .mockResolvedValueOnce({
+          number: 7,
+          title: "Empty Project",
+          items: { totalCount: 0 },
+        })
+        .mockResolvedValueOnce({
+          id: "PVT_123",
+          title: "Empty Project",
+        });
+
+      const result = await projectCommand(["delete", "7"], ctx);
+
+      expect(result).toContain("deleted");
+      expect(result).toContain("Empty Project");
+      expect(result).toContain("item_count: 0");
+      expect(result).toContain("status: ok");
+      expect(mockedGhJson).toHaveBeenNthCalledWith(1, [
+        "project",
+        "view",
+        "7",
+        "--format",
+        "json",
+        "--owner",
+        "octo",
+      ]);
+      expect(mockedGhJson).toHaveBeenNthCalledWith(2, [
+        "project",
+        "delete",
+        "7",
+        "--format",
+        "json",
+        "--owner",
+        "octo",
+      ]);
+      expect(result).toContain("gh-axi project list --owner octo");
+    });
+
+    it("refuses to delete a project with items", async () => {
+      mockedGhJson.mockResolvedValueOnce({
+        number: 8,
+        title: "Project With Items",
+        items: { totalCount: 2 },
+      });
+
+      const error = await projectCommand(["delete", "8"], ctx).catch((e) => e);
+
+      expect(error).toBeInstanceOf(AxiError);
+      expect((error as AxiError).code).toBe("VALIDATION_ERROR");
+      expect((error as AxiError).message).toContain("Project With Items");
+      expect((error as AxiError).message).toContain("2 items");
+      expect((error as AxiError).message).toContain("#8");
+      expect((error as AxiError).suggestions.length).toBeGreaterThan(0);
+      expect(mockedGhJson).toHaveBeenCalledTimes(1);
+    });
+
+    it("defaults --owner from repo context when not explicitly given", async () => {
+      mockedGhJson
+        .mockResolvedValueOnce({
+          number: 7,
+          title: "Empty",
+          items: { totalCount: 0 },
+        })
+        .mockResolvedValueOnce({});
+
+      await projectCommand(["delete", "7"], ctx);
+
+      expect(mockedGhJson).toHaveBeenCalledWith(
+        expect.arrayContaining(["--owner", "octo"]),
+      );
+    });
+
+    it("prefers an explicit --owner flag over repo context", async () => {
+      mockedGhJson
+        .mockResolvedValueOnce({
+          number: 7,
+          title: "Empty",
+          items: { totalCount: 0 },
+        })
+        .mockResolvedValueOnce({});
+
+      await projectCommand(["delete", "7", "--owner", "custom-org"], ctx);
+
+      expect(mockedGhJson).toHaveBeenCalledWith(
+        expect.arrayContaining(["--owner", "custom-org"]),
+      );
+    });
+
+    it("defaults --owner to @me when no context or flag is available", async () => {
+      mockedGhJson
+        .mockResolvedValueOnce({
+          number: 7,
+          title: "Empty",
+          items: { totalCount: 0 },
+        })
+        .mockResolvedValueOnce({});
+
+      await projectCommand(["delete", "7"]);
+
+      expect(mockedGhJson).toHaveBeenCalledWith(
+        expect.arrayContaining(["--owner", "@me"]),
+      );
+    });
+
+    it("throws when project number is missing", async () => {
+      await expect(projectCommand(["delete"], ctx)).rejects.toThrow(AxiError);
+    });
+
+    it("rejects unknown flags", async () => {
+      await expect(
+        projectCommand(["delete", "7", "--force"], ctx),
+      ).rejects.toThrow(AxiError);
+    });
+  });
 });

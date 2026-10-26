@@ -680,6 +680,12 @@ const table: SuggestionEntry[] = [
       `Run \`gh-axi project view ${c.id}${ownerFlag(c)}\` to see the copied project`,
     ],
   },
+  {
+    match: (c) => c.domain === "project" && c.action === "delete",
+    lines: (c) => [
+      `Run \`gh-axi project list${ownerFlag(c)}\` to see remaining projects`,
+    ],
+  },
 
   // Project item-list / field-list
   {

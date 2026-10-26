@@ -188,7 +188,7 @@ When a bare (non-JSON) `--jq`/`--template` result still exceeds the raw output l
 | `repo`       | Repositories — list, view, create, edit, clone, fork                        |
 | `label`      | Labels — list, create, edit, delete                                         |
 | `gist`       | Gists — list, view, edit, rename, create, delete, clone                     |
-| `project`    | Projects (v2) - list, view, create, edit, close, copy, items, fields        |
+| `project`    | Projects (v2) - list, view, create, edit, close, copy, delete, items, fields |
 | `secret`     | Actions secrets — list, set, delete                                         |
 | `variable`   | Actions variables — list, set, delete                                       |
 | `search`     | Search issues, PRs, repos, commits, code                                    |
