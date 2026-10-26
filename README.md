@@ -176,25 +176,25 @@ When a bare (non-JSON) `--jq`/`--template` result still exceeds the raw output l
 
 ### Commands
 
-| Command      | Description                                                                 |
-| ------------ | --------------------------------------------------------------------------- |
-| `issue`      | Issues — list, view, create, edit, close, reopen, comment, subissue         |
-| `pr`         | Pull requests — list, view, create, merge, review, checks                   |
-| `discussion` | Discussions (gh preview) - list, view with nested replies, comment or reply |
-| `stack`      | Stacked branches and PRs - create, submit, sync, rebase, merge, navigate    |
-| `run`        | Existing workflow runs - list, view, watch, rerun, cancel, delete, download |
-| `workflow`   | Workflows - list, view, run (trigger), enable, disable                      |
-| `release`    | Releases — list, view, create, edit, delete                                 |
-| `repo`       | Repositories — list, view, create, edit, clone, fork                        |
-| `label`      | Labels — list, create, edit, delete                                         |
-| `gist`       | Gists — list, view, edit, rename, create, delete, clone                     |
+| Command      | Description                                                                  |
+| ------------ | ---------------------------------------------------------------------------- |
+| `issue`      | Issues — list, view, create, edit, close, reopen, comment, subissue          |
+| `pr`         | Pull requests — list, view, create, merge, review, checks                    |
+| `discussion` | Discussions (gh preview) - list, view with nested replies, comment or reply  |
+| `stack`      | Stacked branches and PRs - create, submit, sync, rebase, merge, navigate     |
+| `run`        | Existing workflow runs - list, view, watch, rerun, cancel, delete, download  |
+| `workflow`   | Workflows - list, view, run (trigger), enable, disable                       |
+| `release`    | Releases — list, view, create, edit, delete                                  |
+| `repo`       | Repositories — list, view, create, edit, clone, fork                         |
+| `label`      | Labels — list, create, edit, delete                                          |
+| `gist`       | Gists — list, view, edit, rename, create, delete, clone                      |
 | `project`    | Projects (v2) - list, view, create, edit, close, copy, delete, items, fields |
-| `secret`     | Actions secrets — list, set, delete                                         |
-| `variable`   | Actions variables — list, set, delete                                       |
-| `search`     | Search issues, PRs, repos, commits, code                                    |
-| `api`        | Raw GitHub API access                                                       |
-| `setup`      | Install optional agent session hooks                                        |
-| `update`     | Built-in self-update command inherited from `axi-sdk-js`                    |
+| `secret`     | Actions secrets — list, set, delete                                          |
+| `variable`   | Actions variables — list, set, delete                                        |
+| `search`     | Search issues, PRs, repos, commits, code                                     |
+| `api`        | Raw GitHub API access                                                        |
+| `setup`      | Install optional agent session hooks                                         |
+| `update`     | Built-in self-update command inherited from `axi-sdk-js`                     |
 
 ### Global flags
 
